@@ -7,8 +7,14 @@ package tournamentmanager.view;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.*;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import com.formdev.flatlaf.*;
+import com.formdev.flatlaf.ui.FlatFormattedTextFieldUI;
+import com.formdev.flatlaf.ui.FlatTextBorder;
+import com.sun.prism.paint.Color;
+import javax.swing.border.CompoundBorder;
 
 /**
  *
@@ -25,7 +31,6 @@ public class MainView extends javax.swing.JFrame {
         jDialogLogin.setLocationRelativeTo(this);
         jDialogLogin.requestFocusInWindow();
         jDialogLogin.setVisible(true);
-        
     }
 
     /**
@@ -40,11 +45,12 @@ public class MainView extends javax.swing.JFrame {
         jDialogLogin = new javax.swing.JDialog();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        jTextFieldLogin = new javax.swing.JTextField();
+        jTextFieldPwd = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonConnect = new javax.swing.JButton();
+        jButtonDialogClose = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -72,28 +78,48 @@ public class MainView extends javax.swing.JFrame {
 
         jDialogLogin.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         jDialogLogin.setModal(true);
-        jDialogLogin.setSize(new java.awt.Dimension(278, 214));
+        jDialogLogin.setResizable(false);
+        jDialogLogin.setSize(new java.awt.Dimension(294, 245));
+        jDialogLogin.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                jDialogLoginWindowClosed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("LOGIN");
-        jLabel2.setBorder(new javax.swing.border.MatteBorder(null));
+        jLabel2.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
 
         jLabel3.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
         jLabel3.setText("User");
 
-        jTextField1.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        jTextFieldLogin.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
 
-        jTextField2.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        jTextFieldPwd.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
         jLabel4.setText("Password");
 
-        jButton1.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
-        jButton1.setText("Connect");
+        jButtonConnect.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        jButtonConnect.setText("Connect");
+        jButtonConnect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonConnectActionPerformed(evt);
+            }
+        });
 
-        jButton2.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
-        jButton2.setText("Exit");
+        jButtonDialogClose.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        jButtonDialogClose.setText("Exit");
+        jButtonDialogClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDialogCloseActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setBorder(new javax.swing.border.MatteBorder(null));
 
         javax.swing.GroupLayout jDialogLoginLayout = new javax.swing.GroupLayout(jDialogLogin.getContentPane());
         jDialogLogin.getContentPane().setLayout(jDialogLoginLayout);
@@ -109,14 +135,14 @@ public class MainView extends javax.swing.JFrame {
                             .addComponent(jLabel4))
                         .addGap(18, 18, 18)
                         .addGroup(jDialogLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                            .addComponent(jTextField1))
+                            .addComponent(jTextFieldPwd, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                            .addComponent(jTextFieldLogin))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialogLoginLayout.createSequentialGroup()
-                        .addGap(0, 53, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButtonConnect)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonDialogClose, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jDialogLoginLayout.setVerticalGroup(
@@ -127,15 +153,17 @@ public class MainView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jDialogLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jDialogLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldPwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jDialogLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButtonConnect)
+                    .addComponent(jButtonDialogClose))
                 .addContainerGap())
         );
 
@@ -330,6 +358,35 @@ public class MainView extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jMenuItemExitActionPerformed
 
+    private boolean isInputEmpty(JTextField jtxt) {
+        if (jtxt.getText().equals("")) {
+            //jtxt.setBackground(new java.awt.Color(156, 56, 35));
+            jtxt.putClientProperty("JComponent.outline", "error" );
+            jLabel5.setText("Input fields not filled properly");
+            return true;
+        }
+        jtxt.setBackground(UIManager.getLookAndFeelDefaults().getColor(jtxt));
+        return false;
+    }
+
+    private void jButtonConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConnectActionPerformed
+        if (isInputEmpty(jTextFieldPwd) | isInputEmpty(jTextFieldLogin)){
+            jLabel5.setText("Input fields not filled properly");
+        } else {
+            jLabel5.setText("");
+        }
+
+    }//GEN-LAST:event_jButtonConnectActionPerformed
+
+    private void jButtonDialogCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDialogCloseActionPerformed
+        jDialogLogin.dispose();
+        System.exit(0);
+    }//GEN-LAST:event_jButtonDialogCloseActionPerformed
+
+    private void jDialogLoginWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_jDialogLoginWindowClosed
+        System.exit(0);
+    }//GEN-LAST:event_jDialogLoginWindowClosed
+
     /**
      * @param args the command line arguments
      */
@@ -343,7 +400,7 @@ public class MainView extends javax.swing.JFrame {
             UIManager.setLookAndFeel(new com.formdev.flatlaf.intellijthemes.FlatMaterialDesignDarkIJTheme());
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
         //</editor-fold>
 
         /* Create and display the form */
@@ -356,10 +413,10 @@ public class MainView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TournamentTable;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButtonClose;
+    private javax.swing.JButton jButtonConnect;
+    private javax.swing.JButton jButtonDialogClose;
     private javax.swing.JButton jButtonEditTourney;
     private javax.swing.JButton jButtonLoadTourney;
     private javax.swing.JButton jButtonNewTourney;
@@ -368,6 +425,7 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenuAbout;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuEdit;
@@ -384,8 +442,8 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextFieldLogin;
+    private javax.swing.JTextField jTextFieldPwd;
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
 }
