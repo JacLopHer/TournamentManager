@@ -15,13 +15,25 @@ public class Player implements Comparable<Player> {
 
     private String name;
     private String nickname;
-    private ArrayList<String> factions;
+    private String faction;
     private int score;
     private int secondaryScore;
     private ArrayList<String> opponents;
     private int byeRound;
     private int index;
 
+    public Player(String name, String nickname, String faction) {
+        this.name = name;
+        this.nickname = nickname;
+        this.faction = faction;
+        this.secondaryScore = 0;
+        this.score = 0;
+        this.byeRound = -1;
+        this.opponents = new ArrayList<>();
+    }
+
+    
+    
     /**
      * @return the name
      */
@@ -53,15 +65,15 @@ public class Player implements Comparable<Player> {
     /**
      * @return the factions
      */
-    public ArrayList<String> getFactions() {
-        return factions;
+    public String getFactions() {
+        return faction;
     }
 
     /**
-     * @param factions the factions to set
+     * @param faction the factions to set
      */
-    public void setFactions(ArrayList<String> factions) {
-        this.factions = factions;
+    public void setFactions(String faction) {
+        this.faction = faction;
     }
 
     /**
@@ -115,7 +127,7 @@ public class Player implements Comparable<Player> {
         } else {
             if (other.secondaryScore > secondaryScore) {
                 return 1;
-            } else if (other.secondaryScore < secondaryScore){
+            } else if (other.secondaryScore < secondaryScore) {
                 return -1;
             }
         }
@@ -148,6 +160,42 @@ public class Player implements Comparable<Player> {
      */
     public void setIndex(int index) {
         this.index = index;
+    }
+
+    enum Factions {
+        AstraMilitarum,
+        Necrons, 
+        Tau, 
+        ThousandSons,
+        Craftworlds,
+        Drukhari,
+        Harlequins,
+        Orks,
+        DeathGuard, 
+        ChaosSpaceMarines, 
+        Daemons,
+        ChaosKnights,
+        BloodAngels,
+        Ultramarines,
+        SpaceMarines,
+        Salamanders,
+        Ironhands,
+        ImperialFist,
+        CrimsonFist,
+        RavenGuard,
+        SpaceWolves,
+        DarkAngels,
+        DeathWatch,
+        AdeptusMechanicus,
+        WhiteScar, 
+        BlackTemplars,
+        AdeptasSororitas,
+        GreyKnights,
+        Ynnari,
+        Tyranids,
+        GenestealersCult,
+        ImperialKnights,
+        Custodes
     }
 
 }

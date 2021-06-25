@@ -5,23 +5,21 @@
  */
 package tournamentmanager.view;
 
+import com.mysql.jdbc.MySQLConnection;
+import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import com.formdev.flatlaf.*;
-import com.formdev.flatlaf.ui.FlatFormattedTextFieldUI;
-import com.formdev.flatlaf.ui.FlatTextBorder;
-import com.sun.prism.paint.Color;
-import javax.swing.border.CompoundBorder;
+
 
 /**
  *
  * @author Jacinto López Hernández
  */
 public class MainView extends javax.swing.JFrame {
-
+    public static tournamentmanager.database.MySQLConnector mySqlConnector;
     /**
      * Creates new form MainView
      */
@@ -402,7 +400,7 @@ public class MainView extends javax.swing.JFrame {
             Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        mySqlConnector = new tournamentmanager.database.MySQLConnector();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

@@ -15,6 +15,7 @@ import java.util.Random;
  * @author Jacinto López Hernández
  */
 public class Tournament {
+    private String tournament_name;
     private ArrayList<Player> players = new ArrayList<>();
     private ArrayList<Match> allMatches = new ArrayList<>();
     private ArrayList<RoundMatching> allPairings = new ArrayList<>();
@@ -24,9 +25,10 @@ public class Tournament {
     private boolean itsOver = false;
     private Random random = new Random();
 
-    public Tournament(int rounds, LocalDate date) {
+    public Tournament(int rounds, LocalDate date, String tournament_name) {
         this.rounds = rounds;
         this.date = date;
+        this.tournament_name = tournament_name;
     }
 
     /**
@@ -244,6 +246,20 @@ public class Tournament {
      */
     public void setRandom(Random random) {
         this.random = random;
+    }
+
+    /**
+     * @return the tournament_name
+     */
+    public String getTournament_name() {
+        return tournament_name;
+    }
+
+    /**
+     * @param tournament_name the tournament_name to set
+     */
+    public void setTournament_name(String tournament_name) {
+        this.tournament_name = tournament_name;
     }
     
     
