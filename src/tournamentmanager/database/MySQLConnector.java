@@ -25,7 +25,6 @@ public class MySQLConnector {
     public MySQLConnector() {
         try {
             cnx = DriverManager.getConnection(SERVER, USER, PWD);
-            System.out.println(cnx.getCatalog());
         } catch (SQLException ex) {
             Logger.getLogger(MySQLConnector.class.getName()).log(Level.SEVERE, null, ex);
         }
