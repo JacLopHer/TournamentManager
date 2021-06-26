@@ -5,30 +5,47 @@
  */
 package tournamentmanager.view;
 
-import com.mysql.jdbc.MySQLConnection;
-import java.sql.Connection;
+import com.sun.glass.events.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-
+import tournamentmanager.database.LoginManager;
+import tournamentmanager.entities.Admin;
 
 /**
  *
  * @author Jacinto López Hernández
  */
 public class MainView extends javax.swing.JFrame {
+
     public static tournamentmanager.database.MySQLConnector mySqlConnector;
+
     /**
      * Creates new form MainView
      */
     public MainView() {
         initComponents();
+        initConnection();
+        initLoginDialog();
         this.setLocationRelativeTo(null);
+    }
+
+    /**
+     * initializes the login form dialog
+     */
+    private void initLoginDialog() {
         jDialogLogin.setLocationRelativeTo(this);
         jDialogLogin.requestFocusInWindow();
         jDialogLogin.setVisible(true);
+    }
+
+    /**
+     * initializes the MySQL connection
+     */
+    private void initConnection() {
+        mySqlConnector = tournamentmanager.database.ConnectionWrapper.initConnection();
     }
 
     /**
@@ -48,7 +65,7 @@ public class MainView extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jButtonConnect = new javax.swing.JButton();
         jButtonDialogClose = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
+        jLabelErrorLogin = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -60,6 +77,8 @@ public class MainView extends javax.swing.JFrame {
         jButtonEditTourney = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButtonClose = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuFile = new javax.swing.JMenu();
         jMenuItemNew = new javax.swing.JMenuItem();
@@ -93,8 +112,18 @@ public class MainView extends javax.swing.JFrame {
         jLabel3.setText("User");
 
         jTextFieldLogin.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        jTextFieldLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldLoginKeyPressed(evt);
+            }
+        });
 
         jTextFieldPwd.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        jTextFieldPwd.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldLoginKeyPressed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
         jLabel4.setText("Password");
@@ -115,9 +144,9 @@ public class MainView extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setBorder(new javax.swing.border.MatteBorder(null));
+        jLabelErrorLogin.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        jLabelErrorLogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelErrorLogin.setBorder(new javax.swing.border.MatteBorder(null));
 
         javax.swing.GroupLayout jDialogLoginLayout = new javax.swing.GroupLayout(jDialogLogin.getContentPane());
         jDialogLogin.getContentPane().setLayout(jDialogLoginLayout);
@@ -140,7 +169,7 @@ public class MainView extends javax.swing.JFrame {
                         .addComponent(jButtonConnect)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonDialogClose, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE))
+                    .addComponent(jLabelErrorLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jDialogLoginLayout.setVerticalGroup(
@@ -157,7 +186,7 @@ public class MainView extends javax.swing.JFrame {
                     .addComponent(jTextFieldPwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabelErrorLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jDialogLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonConnect)
@@ -240,19 +269,43 @@ public class MainView extends javax.swing.JFrame {
             }
         });
 
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel5.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Placeholder");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButtonClose, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jToolBar1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -262,10 +315,12 @@ public class MainView extends javax.swing.JFrame {
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonClose, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonClose, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -358,9 +413,9 @@ public class MainView extends javax.swing.JFrame {
 
     private boolean isInputEmpty(JTextField jtxt) {
         if (jtxt.getText().equals("")) {
-            //jtxt.setBackground(new java.awt.Color(156, 56, 35));
-            jtxt.putClientProperty("JComponent.outline", "error" );
-            jLabel5.setText("Input fields not filled properly");
+            jtxt.setBackground(new java.awt.Color(156, 56, 35));
+            jtxt.putClientProperty("JComponent.outline", "error");
+            jLabelErrorLogin.setText("Input fields not filled properly");
             return true;
         }
         jtxt.setBackground(UIManager.getLookAndFeelDefaults().getColor(jtxt));
@@ -368,22 +423,45 @@ public class MainView extends javax.swing.JFrame {
     }
 
     private void jButtonConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConnectActionPerformed
-        if (isInputEmpty(jTextFieldPwd) | isInputEmpty(jTextFieldLogin)){
-            jLabel5.setText("Input fields not filled properly");
-        } else {
-            jLabel5.setText("");
-        }
-
+        login();
     }//GEN-LAST:event_jButtonConnectActionPerformed
+
+    public void login() {
+        if (isInputEmpty(jTextFieldPwd) | isInputEmpty(jTextFieldLogin)) {
+            jLabelErrorLogin.setText("Input fields not filled properly");
+        } else {
+            String user = jTextFieldLogin.getText();
+            String pwd = jTextFieldPwd.getText();
+            Admin admin = new Admin(user, pwd);
+            String output = LoginManager.checkLogin(admin);
+            jLabelErrorLogin.setText(output);
+            this.setLocationRelativeTo(null);
+            this.setVisible(true);
+            this.requestFocusInWindow();
+            jDialogLogin.setVisible(false);
+
+        }
+    }
 
     private void jButtonDialogCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDialogCloseActionPerformed
         jDialogLogin.dispose();
-        System.exit(0);
+        closeApplication();
     }//GEN-LAST:event_jButtonDialogCloseActionPerformed
 
     private void jDialogLoginWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_jDialogLoginWindowClosed
-        System.exit(0);
+        closeApplication();
     }//GEN-LAST:event_jDialogLoginWindowClosed
+
+    private void jTextFieldLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldLoginKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            login();
+        }
+    }//GEN-LAST:event_jTextFieldLoginKeyPressed
+
+    public void closeApplication() {
+        mySqlConnector.cnxClose();
+        System.exit(0);
+    }
 
     /**
      * @param args the command line arguments
@@ -400,7 +478,7 @@ public class MainView extends javax.swing.JFrame {
             Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        mySqlConnector = new tournamentmanager.database.MySQLConnector();
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -424,6 +502,7 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabelErrorLogin;
     private javax.swing.JMenu jMenuAbout;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuEdit;
@@ -439,6 +518,7 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuTools;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextFieldLogin;
     private javax.swing.JTextField jTextFieldPwd;

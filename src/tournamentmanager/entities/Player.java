@@ -12,7 +12,6 @@ import java.util.ArrayList;
  * @author Jacinto López Hernández
  */
 public class Player implements Comparable<Player> {
-
     private String name;
     private String nickname;
     private String faction;

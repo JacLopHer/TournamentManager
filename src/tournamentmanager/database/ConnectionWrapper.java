@@ -4,16 +4,16 @@
  * and open the template in the editor.
  */
 package tournamentmanager.database;
-import tournamentmanager.entities.Player;
+
 /**
  *
  * @author Jacinto López Hernández
  */
-public class PlayerManager {
+public class ConnectionWrapper {
+    public static MySQLConnector mySQLConnector;
     
-    
-    
-    public void addPlayer(Player player){
-        
+    public static MySQLConnector initConnection(){
+        mySQLConnector = new MySQLConnector();
+        return mySQLConnector;
     }
 }
