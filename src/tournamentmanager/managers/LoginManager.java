@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tournamentmanager.database;
+package tournamentmanager.managers;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static tournamentmanager.database.ConnectionWrapper.mySQLConnector;
@@ -20,8 +19,7 @@ import tournamentmanager.entities.Admin;
  */
 public class LoginManager {
 
-    public static String checkLogin(Admin admin) {
-        String result = "Username/Password incorrect";
+    public static boolean checkLogin(Admin admin) {
 
         try {
             PreparedStatement sta = mySQLConnector.getCnx().prepareStatement("select users.user, users.password from users where users.admin = 1 and users.user = ? and users.password = ?");
@@ -30,13 +28,13 @@ public class LoginManager {
             ResultSet rs = sta.executeQuery();
 
             if (rs.first()) {
-                result = "";
+                return true;
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(LoginManager.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return result;
+        return false;
     }
 }

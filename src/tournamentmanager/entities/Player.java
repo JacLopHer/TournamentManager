@@ -20,8 +20,9 @@ public class Player implements Comparable<Player> {
     private ArrayList<String> opponents;
     private int byeRound;
     private int index;
+    private String list;
 
-    public Player(String name, String nickname, String faction) {
+    public Player(String name, String nickname, String faction, String list) {
         this.name = name;
         this.nickname = nickname;
         this.faction = faction;
@@ -29,8 +30,16 @@ public class Player implements Comparable<Player> {
         this.score = 0;
         this.byeRound = -1;
         this.opponents = new ArrayList<>();
+        this.list = list;
     }
 
+    public Player(String name, String nickname, String faction) {
+        this.name = name;
+        this.nickname = nickname;
+        this.faction = faction;
+    }
+
+    
     
     
     /**
@@ -195,6 +204,20 @@ public class Player implements Comparable<Player> {
         GenestealersCult,
         ImperialKnights,
         Custodes
+    }
+
+    /**
+     * @return the list
+     */
+    public String getList() {
+        return list;
+    }
+
+    /**
+     * @param list the list to set
+     */
+    public void setList(String list) {
+        this.list = list;
     }
 
 }

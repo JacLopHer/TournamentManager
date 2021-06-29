@@ -5,6 +5,7 @@
  */
 package tournamentmanager.entities;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,14 +22,18 @@ public class Tournament {
     private ArrayList<RoundMatching> allPairings = new ArrayList<>();
     private int currentRound = 0;
     private int rounds;
-    private LocalDate date;
+    private int numPlayers;
+    private Date date;
     private boolean itsOver = false;
     private Random random = new Random();
+    private int rowid;
 
-    public Tournament(int rounds, LocalDate date, String tournament_name) {
+    public Tournament(int rounds, Date date, String tournament_name, int numPlayers, int rowid) {
         this.rounds = rounds;
         this.date = date;
         this.tournament_name = tournament_name;
+        this.numPlayers = numPlayers;
+        this.rowid = rowid;
     }
 
     /**
@@ -209,14 +214,14 @@ public class Tournament {
     /**
      * @return the date
      */
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
     /**
      * @param date the date to set
      */
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -261,7 +266,34 @@ public class Tournament {
     public void setTournament_name(String tournament_name) {
         this.tournament_name = tournament_name;
     }
-    
+
+    /**
+     * @return the numPlayers
+     */
+    public int getNumPlayers() {
+        return numPlayers;
+    }
+
+    /**
+     * @param numPlayers the numPlayers to set
+     */
+    public void setNumPlayers(int numPlayers) {
+        this.numPlayers = numPlayers;
+    }
+
+    /**
+     * @return the rowid
+     */
+    public int getRowid() {
+        return rowid;
+    }
+
+    /**
+     * @param rowid the rowid to set
+     */
+    public void setRowid(int rowid) {
+        this.rowid = rowid;
+    }
     
     
     
